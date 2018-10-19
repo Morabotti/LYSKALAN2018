@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../socket.io/socket.io.js"></script>
+    <script lang="javascript">
+    var IP =  window.location.protocol +"//"+ window.location.host;
+    var socket = io.connect(IP +'/musicplayer-socket');
+    
+    socket.on('play', function (data) {
+        playVideo();
+    });
+
+    socket.on('pause', function (data) {
+        pauseVideo();
+    });
+
+    socket.on('refresh', function (data) {
+        refreshPage();
+    });
+
+    socket.on('skip', function (data) {
+        skipVideo();
+    });
+    
+ 
+</script>
+</head>
+<body>
+    <div id="player"></div>
+    <script>
+        
+        var IP =  window.location.protocol +"//"+ window.location.host;
+
+        var ajax_music = IP+"/json/song-data.json";
+        var ajax_youtubelist_deletefirst = IP+"/api/youtubelist/delete-first";
+        
+        var tag = document.createElement('script');
+    
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+            height: '390',
+            width: '640',
+            videoId: '',
+            events: {
+                'onReady': GetFirstVideo
+            }
+            });
+        }
+
+        var played = 0;
+        var DURA = 0;
+        var isPlaying = true;
+
+        function playVideo() {
+            if(!isPlaying)
+            {
+                player.playVideo();
+                YT_TIMER = setTimeout(GetFirstVideo, (DURA - played) * 1000 - 300);
+                console.log(DURA - played);
+                isPlaying = true;
+            }
+        }
+
+        function refreshPage(){
+            location.reload();
+        }
+
+        function pauseVideo(){
+            if(isPlaying)
+            {
+                played = player.getCurrentTime()
+                player.pauseVideo();
+                console.log(played);
+                clearTimeout(YT_TIMER);
+                isPlaying = false;
+            }
+        }
+
+        function skipVideo(){
+            clearTimeout(YT_TIMER);
+            GetFirstVideo();
+        }
+
+        function GetFirstVideo()
+        {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', ajax_music, true);
+            xhr.responseType = 'blob';
+            xhr.onload = function(e) { 
+                if (this.status == 200) {
+                    var file = new File([this.response], 'temp');
+                    var fileReader = new FileReader();
+                    fileReader.addEventListener('load', function(){
+                        var info = JSON.parse(fileReader.result);
+                        VideoInfo(info[0].yt_id, info[0].yt_duration);
+                        DeleteFirstFromList();
+                    });
+                    fileReader.readAsText(file);
+                }
+            }
+            xhr.send();
+        }
+
+
+        function VideoInfo(YT_ID, YT_DUR)
+        {
+            player.loadVideoById(YT_ID);
+            DURA = YT_DUR;
+            YT_TIMER = setTimeout(GetFirstVideo, DURA*1000 - 300);
+
+        }
+
+        function DeleteFirstFromList()
+        {
+            $.ajax({
+                type: "POST",
+                url: ajax_youtubelist_deletefirst,
+                success: function(res){
+                    console.log("success");
+                },
+                error: function(){
+                    console.log("fail");
+                }
+            });
+        }
+
+</script>
+</body>
+</html>

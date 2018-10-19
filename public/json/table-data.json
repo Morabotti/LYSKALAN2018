@@ -1,0 +1,4 @@
+{
+  "content": "<p id=\"table_text\"></p><p id=\"table_text\"></p><p id=\"table_text\"></p><table class=\"table is-bordered is-striped is-narrow is-hoverable is-fullwidth\"><thead><tr><th><span style=\"font-size: 18px;\">Aika</span></th><th><span style=\"font-size: 18px;\">Tapahtuma</span></th></tr></thead><tbody><tr><td><span style=\"font-size: 18px;\">16:00</span></td><td><span style=\"font-size: 18px;\">Ovet aukeaa</span></td></tr><tr><td><span style=\"font-size: 18px;\">17:00</span></td><td><span style=\"font-size: 18px;\">Jatkuu</span></td></tr></tbody></table><p><br></p><p></p><p></p><p></p>",
+  "id": "my_editor"
+}

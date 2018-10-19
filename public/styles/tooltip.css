@@ -1,0 +1,19 @@
+.tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #262626;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 110%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+
+.Pvarattu:hover .tooltiptext {
+    visibility: visible;
+}

@@ -1,0 +1,418 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/css/froala_editor.min.css' rel='stylesheet' type='text/css' />
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/css/froala_style.min.css' rel='stylesheet' type='text/css' />
+    <link rel="icon" href="../img/icon32x32.ico" sizes="32x32">
+    <link rel="icon" href="../img/icon16x16.ico" sizes="16x16">
+    <script src="../scripts/dashboard/variables.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="../styles/dashboard.css"/>
+    <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/js/froala_editor.min.js'></script>
+    
+    <script src="../scripts/dashboard/plugins/align.min.js"></script>
+    <script src="../scripts/dashboard/plugins/colors.min.js"></script>
+    <script src="../scripts/dashboard/plugins/font_size.min.js"></script>
+    <script src="../scripts/dashboard/plugins/image.min.js"></script>
+    <script src="../scripts/dashboard/plugins/image_manager.min.js"></script>
+    <script src="../scripts/dashboard/plugins/line_breaker.min.js"></script>
+    <script src="../scripts/dashboard/plugins/help.min.js"></script>
+    <script src="../scripts/dashboard/plugins/save.min.js"></script>
+    <script src="../scripts/dashboard/plugins/table.min.js"></script>
+    <script src="../scripts/dashboard/plugins/link.min.js"></script>
+    <script src="../scripts/dashboard/plugins/lists.min.js"></script>
+    <script src="../scripts/dashboard/plugins/url.min.js"></script>
+    <script src="../scripts/dashboard/plugins/video.min.js"></script>
+ 
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="fmain">
+        <div class="fHead">
+            <div class="columns">
+                <div class="column is-four-fifths">
+                    <h1 class="title is-2">Dashboard</h1>
+                </div>
+                <div class="column">
+                    <a class="button is-link" style="float:right" onclick="Logout()" id="logoutbutton">
+                        <span class="icon is-small">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </span>
+                        <span>Kirjaudu ulos</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="tabs fTabs">
+            <ul>
+                <li class="is-active" id="link-1"><a onclick="ChangeTab(1)" class="tb">Varaukset</a></li>
+                <li id="link-2"><a onclick="ChangeTab(2)" class="tb">Tietojen muuttaminen</a></li>
+                <li id="link-3"><a onclick="ChangeTab(3)" class="tb">Aikataulun muuttaminen</a></li>
+                <li id="link-4"><a onclick="ChangeTab(4)" class="tb">Kilta muuttaminen</a></li>
+                <li id="link-5"><a onclick="ChangeTab(5)" class="tb">Ohje</a></li>
+                <li id="link-6"><a onclick="ChangeTab(6)" class="tb">Song request</a></li>
+            </ul>
+        </div>
+        <div id="tab-1" class="fTabContainer tab-main">
+            <div class="table-control">
+                <a class="button is-outlined" title="Force refresh" id="function-force-refresh">
+                    <span class="icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </span>
+                </a>
+
+                <div class="table-search">
+                    <div class="control has-icons-right">
+                        <input type="text" class="input" id="search" placeholder="Etsi varaus" onkeyup='searchTable()' size="40">
+                        <span class="icon is-small is-right">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+            <div id="table-render">
+                
+            </div>
+        </div>
+        <div id="tab-2" class="fTabContainer">
+            <div class="control autoheight">
+                <a class="button is-success is-pulled-right" id="saveButton">
+                    <span class="icon is-small">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span>Tallenna</span>
+                </a>
+                <p class="control is-pulled-right margin-right-5" onclick="InitTextArea()">
+                    <a class="button">
+                        Peruuta
+                    </a>
+                </p>
+            </div>
+            <div id="myEditor">
+                <p id="editor_text"></p>
+            </div>
+        </div>
+        <div id="tab-3" class="fTabContainer">
+            <div class="control autoheight">
+                <a class="button is-success is-pulled-right" id="saveButtonTimetable">
+                    <span class="icon is-small">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span>Tallenna</span>
+                </a>
+                <p class="control is-pulled-right margin-right-5" onclick="InitTableArea()">
+                    <a class="button">
+                        Peruuta
+                    </a>
+                </p>
+            </div>
+            <div id="myEditor_table">
+                <p id="table_text">
+                </p>
+            </div>
+        </div>
+        <div id="tab-4" class="fTabContainer">
+            <div class="control autoheight">
+                <a class="button is-success is-pulled-right" id="saveButtonKilta">
+                    <span class="icon is-small">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span>Tallenna</span>
+                </a>
+                <p class="control is-pulled-right margin-right-5" onclick="InitKiltaArea()">
+                    <a class="button">
+                        Peruuta
+                    </a>
+                </p>
+            </div>
+            <div id="myEditor_kilta">
+                <p id="kilta_text">
+                </p>
+            </div>
+        </div>
+        <div id="tab-5" class="fTabContainer">
+            <h2 class="title is-3">Käyttöohjeet</h2>
+            <h2 class="subtitle is-5">Fontti koot:</h2>
+            <pre class="highlight">
+H1 - Pääotsikot = 36px
+H2 - Alaotsikko = 30px
+P - Normaaliteksti = 18px</pre>
+            <h2 class="subtitle is-5">Aikataulu:</h2>
+            <pre class="highlight">
+&lt;table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+    &lt;thead>
+        &lt;tr>
+            &lt;th>Aika</th>
+            &lt;th>Tapahtuma</th>
+        &lt;/tr>
+    &lt;/thead>
+    &lt;tbody>
+        &lt;tr>
+            &lt;td>16:00</td>
+            &lt;td>Ovet aukeaa.</td>
+        &lt;/tr>
+    &lt;/tbody>  
+&lt;/table></pre>
+            <p>Käytä tätä jos aikataulun muuttamisessa tapahtuu virhe ja taulukko poistuu. Taulukon saa myös takaisin painamalla cancel nappulaa tai päivittämällä sivun.</p>
+            <p>Taulukkoon saa lisää rivejä painamalla tab -näppäintä viimeisessä solussa.</p>
+            <p>Lisätessä uutta tekstiä taulukkoon, kannattaa tarkistaa, että fontti koko on 18px</p>
+        </div>
+        <div id="tab-6" class="fTabContainer">
+            <div class="table-control">
+                <a class="button is-outlined" title="Force refresh" id="function-music-force-refresh">
+                    <span class="icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </span>
+                </a>
+                <a class="button is-outlined" title="Open music tab" href="../musicplayer" target="_blank" id="function-music-open">
+                    <span class="icon">
+                        <i class="fas fa-tasks"></i>
+                    </span>
+                    <span>
+                        Avaa musiikkisoitin
+                    </span>
+                </a>
+                <a class="button is-danger" id="function-music-delete">
+                    <span>Poista valitut</span>
+                    <span class="icon is-small">
+                      <i class="fas fa-times"></i>
+                    </span>
+                </a>
+                <a class="button is-link" id="music_play">
+                    <span class="icon">
+                        <i class="fas fa-play"></i>
+                    </span>
+                    <span>PLAY</span>
+                </a>
+                <a class="button is-warning" id="music_pause">
+                    <span class="icon">
+                        <i class="fas fa-pause"></i>
+                    </span>
+                    <span>PAUSE</span>
+                </a>
+                <a class="button is-info" id="music_skip">
+                    <span class="icon">
+                        <i class="fas fa-forward"></i>
+                    </span>
+                    <span>SKIP</span>
+                </a>
+                <a class="button is-primary" id="music_refresh">
+                    <span class="icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </span>
+                    <span>REFRESH PLAYER</span>
+                </a>
+                <div class="table-search">
+                    <div class="control has-icons-right">
+                        <input type="text" class="input" id="music-search" placeholder="Etsi musiikki" onkeyup='searchMusicTable()' size="35">
+                        <span class="icon is-small is-right">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+            <div id="music-render">
+                
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="DeleteConfirm">
+        <div class="modal-background deletefunc"></div>
+        <div class="modal-content">
+            <article class="message is-danger">
+                <div class="message-header">
+                    <p>Varoitus</p>
+                    <button class="delete deletefunc" aria-label="delete"></button>
+                </div>
+                <div class="message-body">
+                    <div class="text-align-center">Tietoja ei saada takaisin poiston jälkeen. Haluatko varmasti poistaa varauksen?</div>
+                    <div class="fbuttons">
+                        <div class="field is-grouped">
+                            <p class="control">
+                                <a class="button is-danger" id ="fPoisto">
+                                    Poista
+                                </a>
+                            </p>
+                            <p class="control">
+                                <a class="button deletefunc">
+                                    Peruutus
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <button class="modal-close is-large deletefunc" aria-label="close"></button>
+    </div>
+    <div class="modal" id="ShowInfo">
+        <div class="modal-background removefunc"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Tiedot</p>
+                    <button class="delete removefunc" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <p>Nimi: <p class="is-strong" id="info_nimi"> </p></p>
+                    <p>Luokka: <p class="is-strong" id="info_luokka"> </p></p>
+                    <p>Paikka: <p class="is-strong" id="info_paikka"> </p></p>
+                    <p>Tiimi: <p class="is-strong" id="info_tiimi"> </p></p>
+                    <p>Tiimin nimi: <p class="is-strong" id="info_tnimi"> </p></p>
+                    <p>Tiimin pelit: <p class="is-strong" id="info_tpelit"> </p></p>
+                    <p>Extra info: <p class="is-strong" id="info_info"> </p></p>
+                    <p>Varaus varmistettu: <p class="is-strong" id="info_confirmed"> </p></p>
+                    <p>Koska varasi paikan: <p class="is-strong" id="info_aika"> </p></p>
+                    <p>IP: <p class="is-strong" id="info_ip"> </p></p>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-fullwidth removefunc">Poistu</button>
+                </footer>
+            </div>
+        </div>
+        <button class="modal-close is-large removefunc" aria-label="close"></button>
+    </div>
+
+    <div class="modal" id="EditInfo">
+        <div class="modal-background exitfunc"></div>
+        <div class="modal-content">
+            <div class="varausBox">
+                <div class="field">
+                    <label class="label">Etunimi</label>
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input" type="text" placeholder="Etunimi" id="form_etunimi" maxlength="20">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Sukunimi</label>
+                    <div class="control has-icons-left has-icons-right">
+                        <input class="input" type="text" placeholder="Sukunimi" id="form_sukunimi" maxlength="20">
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="field is-horizontal div-control2">
+                    <div class="field-label is-normal">
+                        <label class="label">Luokka</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input class="input" type="text" placeholder="Luokka" id="form_luokka" maxlength="3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal div-control">
+                    <div class="field-label is-normal">
+                        <label class="label">Istumapaikka</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <input class="input" type="text" placeholder="Valitse paikka" id="form_istumapaikka" maxlength="4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <label class="label" style="width:179px">Osallistutko turnauksiin</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field is-narrow">
+                            <div class="control">
+                                <label class="radio">
+                                    <input type="radio" name="member" id="form_turnaus_kylla">
+                                    Kyllä
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="member" checked="checked" id="form_turnaus_ei">
+                                    En
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-form" id="team-form" style="display:none">
+                    <div class="field">
+                        <label class="label">Tiimin nimi</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Tiimin nimi" id="form_tiiminimi" maxlength="20">
+                        </div>
+                    </div>
+                    <div class="field is-horizontal">
+                        <div class="field-label">
+                            <label class="label" style="width:114px">Tiimi osallistuu</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="field">
+                                <div class="control">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="form_tiimi_1">
+                                        CSGO turnaukseen
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="form_tiimi_2">
+                                        LOL turnaukseen
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field margin-top-30">
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <textarea class="textarea" placeholder="Onko jotain muuta? Tarvitsetko erikoisjärjestelyjä? Onko kysyttävää?" id="form_info" maxlength="300"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="buttoncenter">
+                    <div class="field">
+                        <div class="field-body">
+                            <div class="field is-grouped">
+                                <div class="control">
+                                    <button class="button is-primary" id="form_submit">
+                                        Tallenna
+                                    </button>
+                                </div>
+                                <p class="control">
+                                    <a class="button exitfunc">
+                                        Peruutus
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="modal-close is-large exitfunc" aria-label="close"></button>
+    </div>
+    <script src="../scripts/dashboard/table-render.js" async></script>
+    <script src="../scripts/dashboard/music-render.js" async></script>
+    <script src="../scripts/dashboard/tablefunc.js" async></script>
+    <script src="../scripts/dashboard/logout.js"></script>
+    <script src="../scripts/dashboard/text-editor.js"></script>
+    <script src="../scripts/dashboard/kilta-editor.js"></script>
+    <script src="../scripts/dashboard/table-editor.js"></script>
+    <script src="../scripts/dashboard/tab-controller.js" async></script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+.qCont{
+    width: 1100px;
+    background-color:#F7F7F7;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+}
+
+.fpaddings{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.inputarea{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.youtubeimg{
+    width: 150px;
+}
+
+.youtubediv1{
+    width: 150px;
+    float: left;
+}
+
+.youtubediv2{
+    margin-left: 10px;
+    width: 800px;
+    float: left;
+}
+
+.outputarea{
+    border: 1px solid #cfcfcf;
+    border-radius: 15px;
+    padding: 15px;
+    background-color: #fff;
+    display: none;
+    height: 220px;
+}
+
+.PaikJalj{
+    z-index: 1;
+    position: absolute;
+    text-align: center;
+    top: 185px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    font-size: 60px;
+    font-weight: bold;
+    cursor: default;
+    -moz-user-select: none;
+    user-select: none;
+    text-shadow: 1px 1px 6px #000000;
+}
+
+.buttonarea{
+    margin-top: 10px;
+}
+
+#buttonQ{
+    margin-right: auto;
+    margin-left: auto;
+    width: 120px;
+}
+
+.glow {
+    -webkit-animation-duration: 0.5s;
+    -webkit-animation-name: glow;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-iteration-count: infinite;
+    animation-duration: 0.5s;
+    animation-name: glow;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+
+}
+
+@-webkit-keyframes glow {
+    from { text-shadow: 1px 1px 6px #000000;
+    color:#cc0000;
+    }
+    to { text-shadow: 1px 1px 10px #4d1300; 
+    color:#ff0f0f;
+    }
+}
+
+.Vahan{
+    color: #ffad33;
+}
+
+.Loppu{
+    color:#cc0000;
+}
+
+.tab{
+    display: none;
+}
+.inner-tab
+{
+    padding: 30px;
+    padding-top: 10px;
+}
+
+.qLista{
+    display:block;
+}
+
+.qHead{
+    padding: 20px;
+}
+
+.text-centered{
+    text-align: center;
+}
+
+.div-centered{
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+}
+
+.buttoncenter{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+}
+
+.div-control{
+    width: 300px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.div-control2{
+    width: 170px;
+    padding-top: 5px;
+}
+
+.width-200{
+    width: 600px;
+}
+
+.team-form{
+    padding-top: 10px;
+}
+
+.margin-top-30{
+    margin-top: 30px;
+}
+
+.varausBox{
+    border: 1px solid #cfcfcf;
+    border-radius: 15px;
+    padding: 15px;
+    background-color: #fff;
+}
+
+.qTabs{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+@media only screen and (max-device-width : 640px) {
+        .qCont{
+            width: 950px;
+        }
+        body{
+            margin: 5px;
+        }
+        .varausBox{
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+    
+    @media only screen and (max-device-width: 768px) {
+        .qCont{
+            width: 950px;
+        }
+        body{
+            margin: 5px;
+        }
+        .varausBox{
+            margin-left: auto;
+            margin-right: auto;
+        }
+}

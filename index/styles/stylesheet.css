@@ -1,0 +1,24 @@
+.lcontainer{
+    max-height: 100vh;
+    min-height: 100vh;
+    padding-top: 15vh;
+    background-color: #e6e6e6;
+}
+
+.login-form{
+    padding: 20px;
+}
+
+.login-box{
+    border: 1px solid #cfcfcf;
+    border-radius: 15px;
+    padding: 15px;
+    background-color: #fff;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form_button{
+    margin-left: 170px;
+}

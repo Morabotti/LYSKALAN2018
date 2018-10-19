@@ -1,0 +1,6 @@
+.env
+node_modules
+private
+desktop.ini
+package-lock.json
+

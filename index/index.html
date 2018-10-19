@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="./styles/stylesheet.css"/>
+    <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+    <link rel="icon" href="../img/icon32x32.ico" sizes="32x32">
+    <link rel="icon" href="../img/icon16x16.ico" sizes="16x16">
+    <script src="./scripts/variables.js"></script>
+</head>
+<body>
+    <div class="lcontainer">
+        <div class="login-box">
+            <div class="has-text-centered">
+                <h2 class="subtitle is-3">LyskaLAN Admin</h2>
+            </div>
+            <div class="login-form">
+                <div class="field">
+                    <div class="control has-icons-left">
+                        <input class="input" type="text" placeholder="Käyttäjänimi" value="" id="form_us">
+                        <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control has-icons-left">
+                        <input class="input" type="password" placeholder="Salasana" value="" id="form_pw">
+                        <span class="icon is-small is-left">
+                        <i class="fas fa-key"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="field" >
+                    <div class="control">
+                        <button class="button is-primary form_button has-icons-left" id="form_submit">
+                        Login
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var submitbutton = document.getElementById("form_submit")
+        submitbutton.addEventListener("click", function(){
+            submitbutton.classList.add("is-loading");
+            var Data = {
+                password: document.getElementById("form_pw").value,
+                username: document.getElementById("form_us").value
+            };
+            $.ajax({
+            type: "POST",
+            url: ajax_login,
+            data: Data,
+            success: function(res){
+                submitbutton.classList.remove("is-loading");
+                window.location.replace(res);
+            },
+            error: function(){
+                submitbutton.classList.remove("is-loading");
+                document.getElementById("form_pw").classList.add("is-danger");
+                document.getElementById("form_us").classList.add("is-danger");
+                $.notify("Error", "error");
+            }
+          });
+        });
+    </script>
+</body>
+</html>
