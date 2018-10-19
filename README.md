@@ -1,6 +1,6 @@
 # LYSKALAN 2018 Session 6
 
-This site was created for LyskaLAN 2018 Session 6 LAN event. Site uses express NodeJS with MongoDB as a DB. Frontend uses mostly plain JS with some Jquery and other smaller libs. This site also used Bulma css framework. Site is in finnish.
+This site was created for LyskaLAN 2018 Session 6 LAN event. Site uses express NodeJS with MongoDB as a DB. Frontend uses mostly plain JS with some Jquery and other smaller libs. This site also used Bulma CSS framework. Site is in finnish.
 
 Pictures:
 ------
@@ -40,6 +40,7 @@ DB="mongodb+srv://mongodbpath
 }
 ```
 5. Run the server: `node app`
+6. You can use admin panel by going `./login`
 
 NOTE:
 ------
