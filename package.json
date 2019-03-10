@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "production": "node app"
+    "build": "node app",
+    "start": "node app"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +19,7 @@
     "express-session": "^1.15.6",
     "helmet": "^3.14.0",
     "ipware": "^1.0.0",
+    "jquery": "^3.3.1",
     "jsonfile": "^5.0.0",
     "mongoose": "^5.2.15",
     "path": "^0.12.7",

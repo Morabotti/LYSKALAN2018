@@ -73,7 +73,7 @@ const db = mongoose.connection;
 
 
 //PORT
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 8080;
 const server = app.listen(PORT, () => {
   console.log('We have a server running on PORT: ' + PORT);
 });
